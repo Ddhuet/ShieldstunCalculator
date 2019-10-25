@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<meta charset="UTF-8"
+<html>
+    <head>
+        <title>Shieldstun</title>
+        <link href="c3.min.css" rel="stylesheet" type="text/css">
+        <script src="d3.v3.js" charset="utf-8"></script>
+        <script src="c3.min.js"></script>
+        
+		<script>
+			window.addEventListener("load", function() {
+				var columns = [
+							['x1', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+								12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+								22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+								32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+								42, 43, 44, 45, 46, 47, 48, 49, 50],
+								
+							['x2', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+								12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+								22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+								32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+								42, 43, 44, 45, 46, 47, 48, 49, 50],
+								
+							['x3', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+								12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+								22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+								32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+								42, 43, 44, 45, 46, 47, 48, 49, 50],
+								
+							['x4', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+								12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+								22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+								32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+								42, 43, 44, 45, 46, 47, 48, 49, 50],
+								
+							['x5', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+								12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+								22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+								32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+								42, 43, 44, 45, 46, 47, 48, 49, 50],
+						];
+				
+				var xVals = [0.31429,
+							0.48571,
+							0.65714,
+							0.82857,
+							1];
+							
+				for (var i=0; i<xVals.length; i++) {
+					var tempArray = [];
+					tempArray.push(xVals[i].toString());
+					for (var j=1; j<51; j++) {
+						tempArray.push(shieldStun(j, xVals[i]));
+					}
+					columns.push(tempArray);
+				}
+							
+				
+				var chart = c3.generate({
+					bindto: '#chart',
+					data: {
+						xs: {
+							'0.31429': 'x1',
+							'0.48571': 'x2',
+							'0.65714': 'x3',
+							'0.82857': 'x4',
+							'1': 'x5',
+						},
+						columns: columns
+					}
+				});
+			}, false);
+			
+			function shieldStun(damage, analog) {
+				var analogEffect = 0.65 * (1 - ((analog - 0.3) / 0.7));
+				var stun = ((Math.floor(damage) * (analogEffect + 0.3)) * 1.5) + 2;
+				if ((20.1 / stun * Math.floor(stun)) >= 20) {
+					stun = stun - 1;
+				}
+				return Math.floor(stun);
+			}
+
+		</script>
+
+    </head>
+    
+    <body>
+		<div id="chart"></div>
+    </body>
+</html>
